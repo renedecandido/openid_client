@@ -343,9 +343,7 @@ class Flow {
     if (response["state"] != state) {
       throw new ArgumentError("State does not match");
     }
-    if (response.containsKey("code") &&
-        (type == FlowType.proofKeyForCodeExchange ||
-            client.clientSecret != null)) {
+    if (response.containsKey("code")) {
       var code = response["code"];
       return new Credential._(client, await _getToken(code), null);
     } else if (response.containsKey("access_token") ||

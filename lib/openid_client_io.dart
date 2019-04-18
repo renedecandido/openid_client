@@ -11,15 +11,11 @@ class Authenticator {
 
   final Function(String url, String redirectUrl) urlLancher;
 
-  final int port;
-
   Authenticator(Client client,
       {this.urlLancher,
       Iterable<String> scopes: const [],
       Uri redirectUri})
-      : flow = redirectUri == null
-            ? new Flow.authorizationCodeWithPKCE(client)
-            : new Flow.authorizationCode(client)
+      : flow = new Flow.authorizationCodeWithPKCE(client)
           ..scopes.addAll(scopes)
           ..redirectUri = redirectUri;
 
