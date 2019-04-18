@@ -23,14 +23,17 @@ class Authenticator {
           ..scopes.addAll(scopes)
           ..redirectUri = redirectUri;
 
-  Future<Credential> authorize() async {
+  void authorize(Function parentCallback) async {
     var state = flow.authenticationUri.queryParameters["state"];
 
     _requestsByState[state] = new Completer();
 
-    var response = await urlLancher(flow.authenticationUri.toString());
+    Function callback = (String redirectUrl) {
+      parentCallback(flow.callback(response));
+    };
 
-    return flow.callback(response);
+    urlLancher(flow.authenticationUri.toString(), flow.redirectUri.toString(), callback);
+
   }
 
   static Map<int, Future<HttpServer>> _requestServers = {};
