@@ -14,7 +14,7 @@ class Authenticator {
   final int port;
 
   Authenticator(Client client,
-      {this.urlLancher: _runBrowser,
+      {this.urlLancher,
       Iterable<String> scopes: const [],
       Uri redirectUri})
       : flow = redirectUri == null
