@@ -9,7 +9,7 @@ export 'openid_client.dart';
 class Authenticator {
   final Flow flow;
 
-  final Function(String url) urlLancher;
+  final Function(String url, String redirectUrl) urlLancher;
 
   final int port;
 
@@ -23,16 +23,25 @@ class Authenticator {
           ..scopes.addAll(scopes)
           ..redirectUri = redirectUri;
 
-  void authorize(Function parentCallback) async {
+//  void authorize(Function parentCallback) async {
+//    var state = flow.authenticationUri.queryParameters["state"];
+//
+//    _requestsByState[state] = new Completer();
+//
+//    Function callback = (String redirectUrl) {
+//      parentCallback(flow.callback(response));
+//    };
+//
+//    urlLancher(flow.authenticationUri.toString(), flow.redirectUri.toString(), callback);
+//
+//  }
+
+  void authorize() async {
     var state = flow.authenticationUri.queryParameters["state"];
 
     _requestsByState[state] = new Completer();
 
-    Function callback = (String redirectUrl) {
-      parentCallback(flow.callback(response));
-    };
-
-    urlLancher(flow.authenticationUri.toString(), flow.redirectUri.toString(), callback);
+    urlLancher(flow.authenticationUri.toString(), flow.redirectUri.toString());
 
   }
 
