@@ -169,10 +169,8 @@ class AuthClientCommand extends CommandWithRestArguments {
       issuer.toString(),
       clientId
     ]..addAll(secret == null ? [] : ["--secret", secret]));
-    var a = new Authenticator(client, port: port, scopes: scopes);
-    var c = await a.authorize();
-    print(c.idToken.toCompactSerialization());
-    print(toJson(await c.getUserInfo()));
+    var a = new Authenticator(client, scopes: scopes);
+    await a.authorize();
   }
 }
 
