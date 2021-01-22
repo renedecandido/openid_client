@@ -8,7 +8,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  jose: ^0.2.1+1
+  jose:
+    git:
+      url: git://github.com/renedecandido/jose.git
   http: ^0.12.2
   logging: ^0.11.4
   args: ^1.6.0
